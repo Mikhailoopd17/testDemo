@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.pojo;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,6 +10,6 @@ import java.time.LocalDateTime;
 @Setter
 public class Message {
     private int id;
-    private  String name;
+    private String text;
     private LocalDateTime date;
 }

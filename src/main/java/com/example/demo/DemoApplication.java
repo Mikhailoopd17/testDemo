@@ -1,13 +1,22 @@
 package com.example.demo;
 
+import com.example.demo.config.JettyConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 
 @SpringBootApplication
+@PropertySources({
+        @PropertySource(value = "classpath:application.properties")
+})
 public class DemoApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
+        SpringApplication.run(new Class[]{
+                        DemoApplication.class,
+                        JettyConfig.class
+                }, args);
     }
 
 }
