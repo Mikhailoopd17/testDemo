@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MessageRequestParam {
+public class RequestParam {
     Integer page;
     Integer perPage;
 }

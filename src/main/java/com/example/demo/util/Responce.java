@@ -8,7 +8,7 @@ import java.util.List;
 
 @Setter
 @Getter
-public class MessageResponce {
+public class Responce {
     List<Message> messages;
     Integer size;
     Integer page;

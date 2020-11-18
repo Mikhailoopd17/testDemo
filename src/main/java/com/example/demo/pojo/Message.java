@@ -3,13 +3,16 @@ package com.example.demo.pojo;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import javax.persistence.*;
 
 @Getter
 @Setter
-public class Message {
-    private int id;
+@Entity
+@Table(name = "messages")
+public class Message extends AEntry {
     private String text;
-    private LocalDateTime date;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "sender_id")
+    private Sender sender;
 }
