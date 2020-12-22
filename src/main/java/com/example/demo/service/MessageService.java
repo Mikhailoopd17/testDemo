@@ -1,12 +1,14 @@
 package com.example.demo.service;
 
 import com.example.demo.pojo.Message;
+import com.example.demo.pojo.MessageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MessageService {
@@ -16,6 +18,10 @@ public class MessageService {
     public Message addMessage(Message message) {
         messageRepository.save(message);
         return message;
+    }
+
+    public List<MessageResponse> getList() {
+        return messageRepository.findAll().stream().map(Message::fromMessage).collect(Collectors.toList());
     }
 
     public List<Message> getAll() {
