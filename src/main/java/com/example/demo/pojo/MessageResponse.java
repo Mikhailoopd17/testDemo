@@ -27,7 +27,7 @@ public class MessageResponse {
         this.id = id;
     }
 
-    public String getText(String text) {
+    public String getText() {
         return this.text;
     }
 
