@@ -31,6 +31,7 @@ public class Message extends AEntry {
         MessageResponse response = new MessageResponse();
         response.setId(this.getId());
         response.setCreated_at(this.getCreated_at());
+        response.setUpdated_at(super.getUpdated_at());
         response.setText(this.getText());
         response.setSender_id(this.getSender().getId());
         return response;
