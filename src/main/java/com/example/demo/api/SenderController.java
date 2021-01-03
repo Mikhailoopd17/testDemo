@@ -1,6 +1,6 @@
 package com.example.demo.api;
 
-import com.example.demo.pojo.Sender;
+import com.example.demo.pojo.senders.Sender;
 import com.example.demo.service.SenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

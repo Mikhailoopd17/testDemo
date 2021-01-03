@@ -1,4 +1,8 @@
-package com.example.demo.pojo;
+package com.example.demo.pojo.messages;
+
+import com.example.demo.pojo.AEntry;
+import com.example.demo.pojo.senders.Sender;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -17,6 +21,7 @@ public class Message extends AEntry {
         this.text = text;
     }
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "sender_id")
     public Sender getSender() {

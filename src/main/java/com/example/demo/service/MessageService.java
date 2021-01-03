@@ -1,12 +1,13 @@
 package com.example.demo.service;
 
-import com.example.demo.pojo.Message;
-import com.example.demo.pojo.MessageResponse;
+import com.example.demo.pojo.messages.Message;
+import com.example.demo.pojo.messages.MessageRequest;
+import com.example.demo.pojo.messages.MessageResponse;
+import com.example.demo.pojo.senders.Sender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,9 +16,19 @@ public class MessageService {
     @Autowired
     private MessageRepository messageRepository;
 
-    public Message addMessage(Message message) {
-        messageRepository.save(message);
-        return message;
+    @Autowired
+    private SenderRepository senderRepository;
+
+    public Message addMessage(MessageRequest message) {
+        Message newMessage = message.toMessage();
+        if (!senderRepository.existsById(message.getSenderId())) {
+            throw new RuntimeException("Некорректно задан отправитель сообщения");
+        }
+
+        Sender sender = senderRepository.findById(message.getSenderId()).get();
+        newMessage.setCreated_at(LocalDateTime.now());
+        newMessage.setSender(sender);
+        return messageRepository.save(newMessage);
     }
 
     public List<MessageResponse> getList() {

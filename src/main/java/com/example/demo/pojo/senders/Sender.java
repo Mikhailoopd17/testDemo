@@ -1,8 +1,7 @@
-package com.example.demo.pojo;
+package com.example.demo.pojo.senders;
 
-
-import lombok.Getter;
-import lombok.Setter;
+import com.example.demo.pojo.AEntry;
+import com.example.demo.pojo.messages.Message;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,7 +10,6 @@ import java.util.List;
 @Table(name="senders")
 public class Sender extends AEntry {
     private String name;
-
     private List<Message> messages;
 
     public String getName() {

@@ -1,7 +1,8 @@
 package com.example.demo.api;
 
-import com.example.demo.pojo.Message;
-import com.example.demo.pojo.MessageResponse;
+import com.example.demo.pojo.messages.Message;
+import com.example.demo.pojo.messages.MessageRequest;
+import com.example.demo.pojo.messages.MessageResponse;
 import com.example.demo.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class MessageController {
     }
 
     @PostMapping
-    public Message create(@RequestBody Message message) {
+    public Message create(@RequestBody MessageRequest message) {
         return messageService.addMessage(message);
     }
 //

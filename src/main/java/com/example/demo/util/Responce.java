@@ -1,6 +1,6 @@
 package com.example.demo.util;
 
-import com.example.demo.pojo.Message;
+import com.example.demo.pojo.messages.Message;
 import lombok.Getter;
 import lombok.Setter;
 
