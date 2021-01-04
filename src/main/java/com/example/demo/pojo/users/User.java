@@ -1,9 +1,12 @@
 package com.example.demo.pojo.users;
 
 import com.example.demo.pojo.AEntry;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "users")
 public class User extends AEntry {
     private String firstName;
     private String secondName;
@@ -34,14 +37,14 @@ public class User extends AEntry {
         this.lastName = lastName;
     }
 
-    @JsonIgnore
-    public UserCredential getCredential() {
-        return credential;
-    }
-
-    public void setCredential(UserCredential credential) {
-        this.credential = credential;
-    }
+//    @JsonIgnore
+//    public UserCredential getCredential() {
+//        return credential;
+//    }
+//
+//    public void setCredential(UserCredential credential) {
+//        this.credential = credential;
+//    }
 
     class UserCredential {
         private String login = "admin";
