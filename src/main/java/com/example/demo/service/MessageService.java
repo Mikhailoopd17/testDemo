@@ -20,11 +20,11 @@ public class MessageService {
     private SenderRepository senderRepository;
 
     public Message addMessage(MessageRequest message) {
-        Message newMessage = message.toMessage();
         if (!senderRepository.existsById(message.getSenderId())) {
             throw new RuntimeException("Некорректно задан отправитель сообщения");
         }
 
+        Message newMessage = message.toMessage();
         Sender sender = senderRepository.findById(message.getSenderId()).get();
         newMessage.setCreated_at(LocalDateTime.now());
         newMessage.setSender(sender);
