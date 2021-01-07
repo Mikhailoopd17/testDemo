@@ -17,15 +17,15 @@ public class MessageService {
     private MessageRepository messageRepository;
 
     @Autowired
-    private SenderRepository senderRepository;
+    private SenderService senderService;
 
     public Message addMessage(MessageRequest message) {
-        if (!senderRepository.existsById(message.getSenderId())) {
+        if (!senderService.isExistSender(message.getSenderId())) {
             throw new RuntimeException("Некорректно задан отправитель сообщения");
         }
 
         Message newMessage = message.toMessage();
-        Sender sender = senderRepository.findById(message.getSenderId()).get();
+        Sender sender = senderService.findSenderById(message.getSenderId());
         newMessage.setCreated_at(LocalDateTime.now());
         newMessage.setSender(sender);
         return messageRepository.save(newMessage);

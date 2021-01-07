@@ -13,6 +13,7 @@ import java.util.List;
 @Table(name="senders")
 public class Sender extends AEntry {
     private User user;
+    private Long userId;
     private String name;
     private String color;
     private String logo;
@@ -23,7 +24,7 @@ public class Sender extends AEntry {
     }
 
     public void setName(String name) {
-        color = convertToColor(name);
+        color = convertNameToColor(name);
         logo = name.substring(0, 1).toUpperCase();
         this.name = name;
     }
@@ -63,7 +64,16 @@ public class Sender extends AEntry {
         this.logo = logo;
     }
 
-    private static String convertToColor(String str) {
+    @Column(name = "user_id", updatable = false, insertable = false)
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    private String convertNameToColor(String str) {
         int j = 0;
         int [] chars = new int[str.length()];
         for(int i: str.toCharArray()) {
@@ -77,7 +87,6 @@ public class Sender extends AEntry {
             System.out.println(e.getMessage());
             color = new Color(128, 0, 128);
         }
-        StringBuilder hex = new StringBuilder(Integer.toHexString(color.getRGB() & 0xffffff));
-        return "#" + hex.toString();
+        return "#" + Integer.toHexString(color.getRGB() & 0xffffff);
     }
 }

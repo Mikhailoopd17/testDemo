@@ -4,6 +4,7 @@ import com.example.demo.pojo.messages.Message;
 import com.example.demo.pojo.messages.MessageRequest;
 import com.example.demo.pojo.messages.MessageResponse;
 import com.example.demo.service.MessageService;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +18,13 @@ public class MessageController {
     public MessageService messageService;
 
     @GetMapping
-    public List<Message> getAll() {
-        return messageService.getAll();
+    public List<Message> getAll(
+            @RequestParam(value = "with_user_info", required = false, defaultValue = "false") Boolean withUserInfo) {
+        List<Message> messages = messageService.getAll();
+        if (!withUserInfo) {
+            messages.forEach(message -> message.getSender().setUser(null));
+        }
+        return messages;
     }
 
     @GetMapping("/list")
