@@ -1,4 +1,4 @@
-package com.example.demo.pojo;
+package com.example.demo.base;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,7 +12,6 @@ public abstract class AEntry {
     private LocalDateTime created_at;
     private LocalDateTime updated_at;
     private LocalDateTime deleted_at;
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

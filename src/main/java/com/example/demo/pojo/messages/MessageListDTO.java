@@ -1,21 +1,18 @@
 package com.example.demo.pojo.messages;
 
-import lombok.Getter;
-import lombok.Setter;
-
+import com.example.demo.pojo.senders.SenderLogoDTO;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-
 @Entity
 @Table(name = "senders")
-public class MessageResponse {
+public class MessageListDTO {
     private Long id;
     private String text;
     private LocalDateTime created_at;
     private LocalDateTime updated_at;
-    private LocalDateTime deleted_at;
     private Long sender_id;
+    private SenderLogoDTO sender;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,19 +48,21 @@ public class MessageResponse {
         this.updated_at = updated_at;
     }
 
-    public LocalDateTime getDeleted_at() {
-        return deleted_at;
-    }
-
-    public void setDeleted_at(LocalDateTime deleted_at) {
-        this.deleted_at = deleted_at;
-    }
-
     public Long getSender_id() {
         return sender_id;
     }
 
     public void setSender_id(Long sender_id) {
         this.sender_id = sender_id;
+    }
+
+    @OneToOne(targetEntity = SenderLogoDTO.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "sender_id", insertable = false, updatable = false)
+    public SenderLogoDTO getSender() {
+        return sender;
+    }
+
+    public void setSender(SenderLogoDTO sender) {
+        this.sender = sender;
     }
 }

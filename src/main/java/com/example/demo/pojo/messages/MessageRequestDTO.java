@@ -1,7 +1,7 @@
 package com.example.demo.pojo.messages;
 
 
-public class MessageRequest {
+public class MessageRequestDTO {
     private String text;
     private Long senderId;
 

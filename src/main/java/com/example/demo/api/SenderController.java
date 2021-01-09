@@ -15,10 +15,10 @@ public class SenderController {
     @Autowired
     private SenderService senderService;
 
-    @PostMapping
-    public Sender addSender(@RequestBody SenderRequest request) {
-        return senderService.addSender(request);
-    }
+//    @PostMapping
+//    public Sender addSender(@RequestBody SenderRequest request) {
+//        return senderService.addSender(request);
+//    }
 
     @GetMapping
     public List<Sender> getAllSenders() {

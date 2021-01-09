@@ -1,6 +1,6 @@
 package com.example.demo.pojo.users;
 
-import com.example.demo.pojo.AEntry;
+import com.example.demo.base.AEntry;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;

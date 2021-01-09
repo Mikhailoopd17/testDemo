@@ -1,10 +1,9 @@
 package com.example.demo.api;
 
 import com.example.demo.pojo.messages.Message;
-import com.example.demo.pojo.messages.MessageRequest;
-import com.example.demo.pojo.messages.MessageResponse;
+import com.example.demo.pojo.messages.MessageListDTO;
+import com.example.demo.pojo.messages.MessageRequestDTO;
 import com.example.demo.service.MessageService;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,25 +16,25 @@ public class MessageController {
     @Autowired
     public MessageService messageService;
 
-    @GetMapping
-    public List<Message> getAll(
-            @RequestParam(value = "with_user_info", required = false, defaultValue = "false") Boolean withUserInfo) {
-        List<Message> messages = messageService.getAll();
-        if (!withUserInfo) {
-            messages.forEach(message -> message.getSender().setUser(null));
-        }
-        return messages;
-    }
+//    @GetMapping
+//    public List<Message> getAll(
+//            @RequestParam(value = "with_user_info", required = false, defaultValue = "false") Boolean withUserInfo,
+//            @RequestParam(value = "text", required = false) String text,
+//            @RequestParam(value = "sender_ids", required = false) List<Long> senderIds) {
+//        List<Message> messages = messageService.getFilteredList();
+//        if (!withUserInfo) {
+//            messages.forEach(message -> message.getSender().setUser(null));
+//        }
+//        return messages;
+//    }
 
     @GetMapping("/list")
-    public List<MessageResponse> getList() {
+    public List<MessageListDTO> getList() {
         return messageService.getList();
     }
 
-    @PostMapping
-    public Message create(@RequestBody MessageRequest message) {
-        return messageService.addMessage(message);
-    }
-//
-
+//    @PostMapping
+//    public Message create(@RequestBody MessageRequestDTO message) {
+//        return messageService.add(message);
+//    }
 }

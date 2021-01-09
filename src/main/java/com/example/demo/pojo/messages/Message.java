@@ -1,6 +1,6 @@
 package com.example.demo.pojo.messages;
 
-import com.example.demo.pojo.AEntry;
+import com.example.demo.base.AEntry;
 import com.example.demo.pojo.senders.Sender;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -32,8 +32,8 @@ public class Message extends AEntry {
         this.sender = sender;
     }
 
-    public MessageResponse fromMessage() {
-        MessageResponse response = new MessageResponse();
+    public MessageListDTO fromMessage() {
+        MessageListDTO response = new MessageListDTO();
         response.setId(this.getId());
         response.setCreated_at(this.getCreated_at());
         response.setUpdated_at(super.getUpdated_at());

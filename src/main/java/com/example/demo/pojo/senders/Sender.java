@@ -1,6 +1,6 @@
 package com.example.demo.pojo.senders;
 
-import com.example.demo.pojo.AEntry;
+import com.example.demo.base.AEntry;
 import com.example.demo.pojo.messages.Message;
 import com.example.demo.pojo.users.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
