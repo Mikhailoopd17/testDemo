@@ -1,16 +1,18 @@
-package com.example.demo.service;
+package com.example.demo.repo;
 
 import com.example.demo.pojo.users.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface UserRepositiry extends JpaRepository<User, Long> {
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Query("select '*' from User where deleted_at is null")
-    List<User> findAllBy();
+    @Query(value = "select * from users where deleted_at is null", nativeQuery = true)
+    List<User> list();
 
     User findUserById(Long id);
 

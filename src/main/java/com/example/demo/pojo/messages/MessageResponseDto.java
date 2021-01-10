@@ -2,27 +2,19 @@ package com.example.demo.pojo.messages;
 
 import com.example.demo.pojo.AEntry;
 import com.example.demo.pojo.senders.Sender;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "messages")
-public class Message extends AEntry {
+public class MessageResponseDto extends AEntry {
     private String text;
     private Sender sender;
 
     public String getText() {
-        return text;
+        return this.text;
     }
 
     public void setText(String text) {
         this.text = text;
     }
 
-//    @JsonIgnoreProperties(value = {"messages", "hibernateLazyInitializer"})
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "sender_id")
     public Sender getSender() {
         return sender;
     }
