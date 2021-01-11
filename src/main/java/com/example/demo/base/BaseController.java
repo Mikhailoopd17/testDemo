@@ -1,19 +1,20 @@
 package com.example.demo.base;
 
 import com.example.demo.pojo.AEntry;
+import com.example.demo.pojo.Page;
+import com.example.demo.pojo.PageParams;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
-public abstract class BaseController<Dto extends AEntry, Params, R extends AEntry> {
-    private BaseService<Dto, Params, R> baseService;
+public abstract class BaseController<L, Dto extends AEntry, Params, R extends AEntry> {
+    private BaseService<L, Dto, Params, R> baseService;
 
-    public BaseController(BaseService<Dto, Params, R> baseService) {
+    public BaseController(BaseService<L, Dto, Params, R> baseService) {
         this.baseService = baseService;
     }
 
-    @GetMapping("/list")
-    public List<Dto> list() {
-        return baseService.list();
+    @PostMapping("/list")
+    public Page<L> list(@RequestBody PageParams<Params> pageParams) {
+        return baseService.list(pageParams);
     }
 
     @GetMapping("/{id}")

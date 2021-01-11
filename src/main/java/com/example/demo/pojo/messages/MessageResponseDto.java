@@ -2,6 +2,7 @@ package com.example.demo.pojo.messages;
 
 import com.example.demo.pojo.AEntry;
 import com.example.demo.pojo.senders.Sender;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 public class MessageResponseDto extends AEntry {
     private String text;
@@ -15,6 +16,7 @@ public class MessageResponseDto extends AEntry {
         this.text = text;
     }
 
+    @JsonIgnoreProperties(value = {"messages", "hibernateLazyInitializer"})
     public Sender getSender() {
         return sender;
     }
