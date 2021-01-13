@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 public class MessageParams extends BaseParams {
     private LocalDate start = LocalDate.now().minusMonths(1);
-    private LocalDate end = LocalDate.now().plusDays(1);
+    private LocalDate end = LocalDate.now();
 
     @Override
     public LocalDate getStart() {

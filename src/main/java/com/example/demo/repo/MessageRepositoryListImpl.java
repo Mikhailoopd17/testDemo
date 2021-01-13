@@ -22,7 +22,7 @@ public class MessageRepositoryListImpl implements BaseListDao<Message, MessagePa
     public Page<Message> list(PageParams<MessageParams> pageParams) {
         final MessageParams messageParams = pageParams.getParams() == null ? new MessageParams() : pageParams.getParams();
         List<Message> messages = repository.findAllByCreatedAtBetweenAndDeletedIsOrderById(messageParams.getStart().atStartOfDay(),
-                messageParams.getEnd().atStartOfDay(), messageParams.getDeleted());
+                messageParams.getEnd().plusDays(1).atStartOfDay(), messageParams.getDeleted());
 
 
 //        if (params.getIds() != null) {
