@@ -1,4 +1,4 @@
-package com.example.demo.service;
+package com.example.demo.repo;
 
 import com.example.demo.pojo.senders.Sender;
 import org.hibernate.annotations.SQLInsert;

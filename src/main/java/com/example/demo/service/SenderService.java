@@ -3,25 +3,25 @@ package com.example.demo.service;
 import com.example.demo.pojo.senders.Sender;
 import com.example.demo.pojo.senders.SenderRequest;
 import com.example.demo.pojo.users.User;
+import com.example.demo.repo.SenderRepository;
+import com.example.demo.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 @Service
 public class SenderService {
     private final SenderRepository senderRepository;
-    private final UserRepositiry userRepositiry;
+    private final UserRepository userRepository;
 
     @Autowired
-    public SenderService(SenderRepository senderRepository, UserRepositiry userRepositiry) {
+    public SenderService(SenderRepository senderRepository, UserRepository userRepository) {
         this.senderRepository = senderRepository;
-        this.userRepositiry = userRepositiry;
+        this.userRepository = userRepository;
     }
 
     public Boolean isExistSender(Long id) {
@@ -29,13 +29,13 @@ public class SenderService {
     }
 
     public Sender addSender(SenderRequest request) {
-        if (!userRepositiry.existAndNoHaveSenderAccountUser(request.getUserId())) {
+        if (!userRepository.existAndNoHaveSenderAccountUser(request.getUserId())) {
             throw new RestClientException("Пользователь не существует, либо у пользователя уже имеется созданный аккаунт");
         }
-        User user = userRepositiry.findUserById(request.getUserId());
+        User user = userRepository.findUserById(request.getUserId());
         Sender sender = new Sender();
         sender.setName(request.getName());
-        sender.setCreated_at(LocalDateTime.now());
+        sender.setCreatedAt(LocalDateTime.now());
         sender.setUser(user);
         return senderRepository.save(sender);
     }

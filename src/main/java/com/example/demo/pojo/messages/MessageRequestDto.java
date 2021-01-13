@@ -1,7 +1,6 @@
 package com.example.demo.pojo.messages;
 
-
-public class MessageRequest {
+public class MessageRequestDto {
     private String text;
     private Long senderId;
 
@@ -21,9 +20,4 @@ public class MessageRequest {
         this.senderId = senderId;
     }
 
-    public Message toMessage() {
-        Message message = new Message();
-        message.setText(this.text);
-        return message;
-    }
 }
