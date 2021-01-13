@@ -35,7 +35,7 @@ public class SenderService {
         User user = userRepository.findUserById(request.getUserId());
         Sender sender = new Sender();
         sender.setName(request.getName());
-        sender.setCreated_at(LocalDateTime.now());
+        sender.setCreatedAt(LocalDateTime.now());
         sender.setUser(user);
         return senderRepository.save(sender);
     }

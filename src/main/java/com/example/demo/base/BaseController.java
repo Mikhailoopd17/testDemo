@@ -5,7 +5,7 @@ import com.example.demo.pojo.Page;
 import com.example.demo.pojo.PageParams;
 import org.springframework.web.bind.annotation.*;
 
-public abstract class BaseController<L, Dto extends AEntry, Params, R extends AEntry> {
+public abstract class BaseController<L, Dto extends AEntry, Params extends BaseParams, R extends AEntry> {
     private BaseService<L, Dto, Params, R> baseService;
 
     public BaseController(BaseService<L, Dto, Params, R> baseService) {

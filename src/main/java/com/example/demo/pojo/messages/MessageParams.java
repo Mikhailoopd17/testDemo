@@ -1,56 +1,29 @@
 package com.example.demo.pojo.messages;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.example.demo.base.BaseParams;
+import java.time.LocalDate;
 
-import java.time.LocalDateTime;
-import java.util.List;
+public class MessageParams extends BaseParams {
+    private LocalDate start = LocalDate.now().minusMonths(1);
+    private LocalDate end = LocalDate.now().plusDays(1);
 
-public class MessageParams {
-    private List<Long> ids;
-    private LocalDateTime createdAtStart;
-    private LocalDateTime createdAtEnd;
-    private String text;
-    private List<Long> senderIds;
-
-    public List<Long> getIds() {
-        return ids;
+    @Override
+    public LocalDate getStart() {
+        return start;
     }
 
-    public void setIds(List<Long> ids) {
-        this.ids = ids;
+    @Override
+    public void setStart(LocalDate start) {
+        this.start = start;
     }
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    public LocalDateTime getCreatedAtStart() {
-        return createdAtStart;
+    @Override
+    public LocalDate getEnd() {
+        return end;
     }
 
-    public void setCreatedAtStart(LocalDateTime createdAtStart) {
-        this.createdAtStart = createdAtStart;
-    }
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    public LocalDateTime getCreatedAtEnd() {
-        return createdAtEnd;
-    }
-
-    public void setCreatedAtEnd(LocalDateTime createdAtEnd) {
-        this.createdAtEnd = createdAtEnd;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public List<Long> getSenderIds() {
-        return senderIds;
-    }
-
-    public void setSenderIds(List<Long> senderIds) {
-        this.senderIds = senderIds;
+    @Override
+    public void setEnd(LocalDate end) {
+        this.end = end;
     }
 }

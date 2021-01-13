@@ -8,7 +8,7 @@ import com.example.demo.util.MappingService;
 
 import java.time.LocalDateTime;
 
-public abstract class BaseService<List, Dto extends AEntry, Params, Entity extends AEntry> {
+public abstract class BaseService<List, Dto extends AEntry, Params extends BaseParams, Entity extends AEntry> {
     private BaseMapping mappingService;
     private BaseListDao<Entity, Params> baseListDao;
     private BaseDao<Entity> baseDao;
@@ -35,20 +35,21 @@ public abstract class BaseService<List, Dto extends AEntry, Params, Entity exten
     }
 
     public Dto create(Dto dto) {
-        dto.setCreated_at(LocalDateTime.now());
+        dto.setCreatedAt(LocalDateTime.now());
         Entity entity = baseDao.create(mappingService.map(dto, entityClass));
         return mappingService.map(entity, dtoClass);
     }
 
     public Dto update(Dto dto) {
         Entity entity = mappingService.map(dto, entityClass);
-        entity.setUpdated_at(LocalDateTime.now());
+        entity.setUpdatedAt(LocalDateTime.now());
         return mappingService.map(baseDao.update(entity), dtoClass);
     }
 
     public void delete(Long id) {
         Entity entity = baseDao.getById(id);
-        entity.setDeleted_at(LocalDateTime.now());
+        entity.setDeletedAt(LocalDateTime.now());
+        entity.setDeleted(Boolean.TRUE);
         baseDao.update(entity);
     }
 

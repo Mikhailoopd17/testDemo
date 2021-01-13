@@ -37,10 +37,4 @@ public class Message extends AEntry {
     public Boolean likeText(String substring) {
         return this.text.toLowerCase().contains(substring.toLowerCase());
     }
-
-    public Boolean filterByCreateDate(LocalDateTime start, LocalDateTime end) {
-
-        return (super.getCreated_at().toLocalDate().isAfter(start.toLocalDate())
-                || super.getCreated_at().toLocalDate().isBefore(end.toLocalDate()));
-    }
 }

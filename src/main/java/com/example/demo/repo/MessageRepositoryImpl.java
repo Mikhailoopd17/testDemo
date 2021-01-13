@@ -5,6 +5,7 @@ import com.example.demo.pojo.messages.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -32,7 +33,8 @@ public class MessageRepositoryImpl implements BaseDao<Message> {
     }
 
     @Override
-    public List<Message> list() {
-        return messageRepository.list();
+    public List<Message> list(LocalDateTime start, LocalDateTime end, Boolean isDeleted) {
+        return messageRepository.findAllByCreatedAtBetweenAndDeletedIsOrderById(start, end, isDeleted);
+
     }
 }

@@ -1,8 +1,10 @@
 package com.example.demo.pojo;
 
+import com.example.demo.base.BaseParams;
+
 import java.io.Serializable;
 
-public class PageParams<T> implements Serializable {
+public class PageParams<T extends BaseParams> implements Serializable {
     private Integer start;
     private Integer page;
     private T params;
