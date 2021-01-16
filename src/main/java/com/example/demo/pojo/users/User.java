@@ -1,13 +1,13 @@
 package com.example.demo.pojo.users;
 
-import com.example.demo.pojo.AEntry;
+import com.example.demo.base.BaseEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
-public class User extends AEntry {
+public class User extends BaseEntity {
     private String firstName;
     private String secondName;
     private String lastName;

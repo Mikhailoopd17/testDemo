@@ -1,10 +1,12 @@
-package com.example.demo.pojo;
+package com.example.demo.base;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
-public abstract class AEntry {
+public abstract class BaseEntity {
     private Long id;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

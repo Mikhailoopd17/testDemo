@@ -1,5 +1,7 @@
 package com.example.demo.pojo.messages;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class MessageRequestDto {
     private String text;
     private Long senderId;
@@ -12,6 +14,7 @@ public class MessageRequestDto {
         this.text = text;
     }
 
+    @JsonProperty("sender_id")
     public Long getSenderId() {
         return senderId;
     }

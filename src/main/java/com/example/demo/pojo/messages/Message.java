@@ -1,19 +1,17 @@
 package com.example.demo.pojo.messages;
 
-import com.example.demo.pojo.AEntry;
+import com.example.demo.base.BaseEntity;
 import com.example.demo.pojo.senders.Sender;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "messages")
-public class Message extends AEntry {
+public class Message extends BaseEntity {
     private String text;
     private Sender sender;
+
 
     public String getText() {
         return text;
@@ -36,5 +34,10 @@ public class Message extends AEntry {
 
     public Boolean likeText(String substring) {
         return this.text.toLowerCase().contains(substring.toLowerCase());
+    }
+
+    @Transient
+    public Long getSenderId() {
+        return this.sender.getId();
     }
 }

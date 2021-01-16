@@ -1,6 +1,5 @@
 package com.example.demo.base;
 
-import com.example.demo.pojo.AEntry;
 import com.example.demo.pojo.Page;
 import com.example.demo.pojo.PageParams;
 import com.example.demo.util.BaseMapping;
@@ -8,11 +7,12 @@ import com.example.demo.util.MappingService;
 
 import java.time.LocalDateTime;
 
-public abstract class BaseService<List, Dto extends AEntry, Params extends BaseParams, Entity extends AEntry> {
+public abstract class BaseService<List, Dto extends BaseEntity, Request, Params extends BaseParams, Entity extends BaseEntity> {
     private BaseMapping mappingService;
     private BaseListDao<Entity, Params> baseListDao;
     private BaseDao<Entity> baseDao;
     private Class<Dto> dtoClass;
+    private Class<Request> requestClass;
     private Class<Entity> entityClass;
     private Class<List> listClass;
 
@@ -21,12 +21,13 @@ public abstract class BaseService<List, Dto extends AEntry, Params extends BaseP
                        Class<Entity> entityClass,
                        MappingService mappingService,
                        BaseListDao<Entity, Params> baseListDao,
-                       Class<List> listClass) {
+                       Class<Request> requestClass, Class<List> listClass) {
         this.baseDao = baseDao;
         this.dtoClass = dtoClass;
         this.entityClass = entityClass;
         this.mappingService = mappingService;
         this.baseListDao = baseListDao;
+        this.requestClass = requestClass;
         this.listClass = listClass;
     }
 
@@ -34,10 +35,10 @@ public abstract class BaseService<List, Dto extends AEntry, Params extends BaseP
         return mappingService.map(baseDao.getById(id), dtoClass);
     }
 
-    public Dto create(Dto dto) {
-        dto.setCreatedAt(LocalDateTime.now());
-        Entity entity = baseDao.create(mappingService.map(dto, entityClass));
-        return mappingService.map(entity, dtoClass);
+    public Dto create(Request request) {
+        Entity entity = mappingService.map(request, entityClass);
+        entity.setCreatedAt(LocalDateTime.now());
+        return mappingService.map(baseDao.create(entity), dtoClass);
     }
 
     public Dto update(Dto dto) {

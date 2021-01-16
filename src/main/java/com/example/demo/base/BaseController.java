@@ -1,14 +1,13 @@
 package com.example.demo.base;
 
-import com.example.demo.pojo.AEntry;
 import com.example.demo.pojo.Page;
 import com.example.demo.pojo.PageParams;
 import org.springframework.web.bind.annotation.*;
 
-public abstract class BaseController<L, Dto extends AEntry, Params extends BaseParams, R extends AEntry> {
-    private BaseService<L, Dto, Params, R> baseService;
+public abstract class BaseController<L, Dto extends BaseEntity, Request, Params extends BaseParams, R extends BaseEntity> {
+    private BaseService<L, Dto, Request, Params, R> baseService;
 
-    public BaseController(BaseService<L, Dto, Params, R> baseService) {
+    public BaseController(BaseService<L, Dto, Request, Params, R> baseService) {
         this.baseService = baseService;
     }
 
@@ -23,8 +22,8 @@ public abstract class BaseController<L, Dto extends AEntry, Params extends BaseP
     }
 
     @PostMapping
-    public Dto create(@RequestBody Dto dto) {
-       return baseService.create(dto);
+    public Dto create(@RequestBody Request request) {
+       return baseService.create(request);
     }
 
     @PutMapping

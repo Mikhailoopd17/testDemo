@@ -1,6 +1,6 @@
 package com.example.demo.pojo.senders;
 
-import com.example.demo.pojo.AEntry;
+import com.example.demo.base.BaseEntity;
 import com.example.demo.pojo.messages.Message;
 import com.example.demo.pojo.users.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name="senders")
-public class Sender extends AEntry {
+public class Sender extends BaseEntity {
     private User user;
     private Long userId;
     private String name;
@@ -29,7 +29,7 @@ public class Sender extends AEntry {
         this.name = name;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL) // TODO: 14.01.2021 продумать связи и операции crud
     public User getUser() {
         return user;
     }

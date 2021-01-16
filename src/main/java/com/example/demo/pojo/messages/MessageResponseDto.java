@@ -1,10 +1,10 @@
 package com.example.demo.pojo.messages;
 
-import com.example.demo.pojo.AEntry;
+import com.example.demo.base.BaseEntity;
 import com.example.demo.pojo.senders.Sender;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-public class MessageResponseDto extends AEntry {
+public class MessageResponseDto extends BaseEntity {
     private String text;
     private Sender sender;
 

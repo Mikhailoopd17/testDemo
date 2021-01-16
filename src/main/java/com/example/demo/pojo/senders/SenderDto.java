@@ -1,8 +1,8 @@
 package com.example.demo.pojo.senders;
 
-import com.example.demo.pojo.AEntry;
+import com.example.demo.base.BaseEntity;
 
-public class SenderDto extends AEntry {
+public class SenderDto {
     private String name;
     private String color;
     private String logo;

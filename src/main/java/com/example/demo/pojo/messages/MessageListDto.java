@@ -9,7 +9,7 @@ public class MessageListDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private String text;
-    private SenderDto senderDto;
+    private SenderDto sender;
 
     public Long getId() {
         return id;
@@ -43,11 +43,11 @@ public class MessageListDto {
         this.text = text;
     }
 
-    public SenderDto getSenderDto() {
-        return senderDto;
+    public SenderDto getSender() {
+        return sender;
     }
 
-    public void setSenderDto(SenderDto senderDto) {
-        this.senderDto = senderDto;
+    public void setSender(SenderDto sender) {
+        this.sender = sender;
     }
 }

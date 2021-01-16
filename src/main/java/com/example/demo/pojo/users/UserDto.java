@@ -1,8 +1,8 @@
 package com.example.demo.pojo.users;
 
-import com.example.demo.pojo.AEntry;
+import com.example.demo.base.BaseEntity;
 
-public class UserDto extends AEntry {
+public class UserDto extends BaseEntity {
     private String firstName;
     private String secondName;
     private String lastName;
