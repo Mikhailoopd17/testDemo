@@ -12,7 +12,7 @@ public abstract class BaseParams {
     private List<Long> ids;
     private LocalDate start;
     private LocalDate end;
-    private Boolean isDeleted = Boolean.FALSE;
+    private Boolean isDeleted = false;
     private String searchText;
     private List<Long> senderIds;
 

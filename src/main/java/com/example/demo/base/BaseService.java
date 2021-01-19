@@ -38,6 +38,7 @@ public abstract class BaseService<List, Dto extends BaseEntity, Request, Params 
     public Dto create(Request request) {
         Entity entity = mappingService.map(request, entityClass);
         entity.setCreatedAt(LocalDateTime.now());
+        entity.setDeleted(false);
         return mappingService.map(baseDao.create(entity), dtoClass);
     }
 
