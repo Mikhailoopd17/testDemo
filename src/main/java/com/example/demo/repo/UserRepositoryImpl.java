@@ -1,17 +1,15 @@
 package com.example.demo.repo;
 
 import com.example.demo.base.BaseDao;
+import com.example.demo.pojo.Page;
+import com.example.demo.pojo.PageParams;
 import com.example.demo.pojo.users.User;
+import com.example.demo.pojo.users.UserParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
-
 @Repository
-public class UserRepositoryImpl implements BaseDao<User> {
+public class UserRepositoryImpl implements BaseDao<User, UserParams> {
     private UserRepository repository;
 
     @Autowired
@@ -35,7 +33,7 @@ public class UserRepositoryImpl implements BaseDao<User> {
     }
 
     @Override
-    public List<User> list(LocalDateTime start, LocalDateTime end, Boolean isDeleted) {
-        return repository.list();
+    public Page<User> list(PageParams<UserParams> params) {
+        return new Page<>(repository.list(), (long) repository.list().size());
     }
 }

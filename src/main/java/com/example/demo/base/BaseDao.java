@@ -1,15 +1,15 @@
 package com.example.demo.base;
 
 
-import java.time.LocalDateTime;
-import java.util.List;
+import com.example.demo.pojo.Page;
+import com.example.demo.pojo.PageParams;
 
-public interface BaseDao<T extends BaseEntity> {
+public interface BaseDao<T extends BaseEntity, P extends BaseParams> {
     T create(T entity);
 
     T getById(Long id);
 
     T update(T entity);
 
-    List<T> list(LocalDateTime start, LocalDateTime end, Boolean isDeleted);
+    Page<T> list(PageParams<P> params);
 }

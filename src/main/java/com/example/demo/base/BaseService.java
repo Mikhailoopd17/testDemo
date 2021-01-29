@@ -9,24 +9,25 @@ import java.time.LocalDateTime;
 
 public abstract class BaseService<List, Dto extends BaseEntity, Request, Params extends BaseParams, Entity extends BaseEntity> {
     private BaseMapping mappingService;
-    private BaseListDao<Entity, Params> baseListDao;
-    private BaseDao<Entity> baseDao;
+//    private BaseListDao<Entity, Params> baseListDao;
+    private BaseDao<Entity, Params> baseDao;
     private Class<Dto> dtoClass;
     private Class<Request> requestClass;
     private Class<Entity> entityClass;
     private Class<List> listClass;
 
-    public BaseService(BaseDao<Entity> baseDao,
+    public BaseService(BaseDao<Entity, Params> baseDao,
                        Class<Dto> dtoClass,
                        Class<Entity> entityClass,
                        MappingService mappingService,
-                       BaseListDao<Entity, Params> baseListDao,
-                       Class<Request> requestClass, Class<List> listClass) {
+//                       BaseListDao<Entity, Params> baseListDao,
+                       Class<Request> requestClass,
+                       Class<List> listClass) {
         this.baseDao = baseDao;
         this.dtoClass = dtoClass;
         this.entityClass = entityClass;
         this.mappingService = mappingService;
-        this.baseListDao = baseListDao;
+//        this.baseListDao = baseListDao;
         this.requestClass = requestClass;
         this.listClass = listClass;
     }
@@ -56,7 +57,7 @@ public abstract class BaseService<List, Dto extends BaseEntity, Request, Params 
     }
 
     public Page<List> list(PageParams<Params> pageParams) {
-        Page<Entity> page = baseListDao.list(pageParams);
+        Page<Entity> page = baseDao.list(pageParams);
         java.util.List<List> list = mappingService.mapList(page.getList(), listClass);
         return new Page<>(list, page.getTotal());
     }

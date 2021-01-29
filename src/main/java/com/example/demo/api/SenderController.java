@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "${web.prefix}/senders", produces = "application/json; charset=UTF-8")
-public class SenderController {
+public class    SenderController {
 
     @Autowired
     private SenderService senderService;

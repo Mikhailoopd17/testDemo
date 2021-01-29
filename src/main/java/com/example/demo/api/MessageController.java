@@ -3,7 +3,6 @@ package com.example.demo.api;
 import com.example.demo.base.BaseController;
 import com.example.demo.base.BaseService;
 import com.example.demo.pojo.messages.*;
-import com.example.demo.util.MappingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
