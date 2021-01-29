@@ -13,11 +13,14 @@ import java.util.List;
 public interface MessageRepository extends JpaRepository<Message, Long> {
     Message findMessageById(Long id);
 
-    @Query(value = "SELECT count(*) FROM (SELECT id FROM messages WHERE NOT is_deleted) as mes", nativeQuery = true)
+    @Query(value = "SELECT count(*) FROM messages WHERE NOT is_deleted", nativeQuery = true)
     Integer getActiveCount();
 
-    @Query(value = "SELECT * FROM messages WHERE NOT is_deleted offset :offset limit :limit", nativeQuery = true)
-    List<Message> findLimitMessages(Integer offset, Integer limit);
+    @Query(value = "SELECT * FROM messages " +
+            "WHERE NOT is_deleted " +
+            "order by created_at " +
+            "offset :offset", nativeQuery = true)
+    List<Message> findLimitMessages(Integer offset);
 
     List<Message> findAllByCreatedAtBetweenAndDeletedIsOrderById(LocalDateTime createdAtStart, LocalDateTime createdAtEnd, Boolean isDeleted);
 }

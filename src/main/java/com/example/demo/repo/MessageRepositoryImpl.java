@@ -49,7 +49,7 @@ public class MessageRepositoryImpl implements BaseDao<Message, MessageParams> {
         List<Message> messages;
         if (messageParams.getStart() == null || messageParams.getEnd() == null) {
             Integer count = messageRepository.getActiveCount();
-            messages = messageRepository.findLimitMessages(count - limitLastMessages ,limitLastMessages);
+            messages = messageRepository.findLimitMessages(count - limitLastMessages);
         } else {
             messages = messageRepository.findAllByCreatedAtBetweenAndDeletedIsOrderById(messageParams.getStart().atStartOfDay(),
                     messageParams.getEnd().plusDays(1).atStartOfDay(), messageParams.getDeleted());
