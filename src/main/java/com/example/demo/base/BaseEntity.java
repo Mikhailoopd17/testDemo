@@ -1,7 +1,5 @@
 package com.example.demo.base;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 

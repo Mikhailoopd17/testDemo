@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Query(value = "select * from users where deleted_at is null", nativeQuery = true)
+    @Query("select '*' from User where deleted = false")
     List<User> list();
 
     User findUserById(Long id);

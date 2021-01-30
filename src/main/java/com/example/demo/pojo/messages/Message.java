@@ -32,10 +32,6 @@ public class Message extends BaseEntity {
         this.sender = sender;
     }
 
-    public Boolean likeText(String substring) {
-        return this.text.toLowerCase().contains(substring.toLowerCase());
-    }
-
     @Transient
     public Long getSenderId() {
         return this.sender.getId();

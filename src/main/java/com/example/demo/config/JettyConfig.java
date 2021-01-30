@@ -1,6 +1,9 @@
 package com.example.demo.config;
 
+import org.eclipse.jetty.server.NCSARequestLog;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.HandlerList;
+import org.eclipse.jetty.server.handler.RequestLogHandler;
 import org.eclipse.jetty.server.handler.StatisticsHandler;
 import org.eclipse.jetty.util.thread.QueuedThreadPool;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,8 +15,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class JettyConfig  {
+
+    @Value("${jetty.requests.logging.file}")
+    private String logFile;
+
     @Value("${jetty.requests.logging.enabled}")
-    private Boolean logEnabled = false;
+    private Boolean logEnabled;
 
     @Value("${jetty.requests.graceful.shutdown.time}")
     private Integer jettyRequestsGracefulShutdownTime;
@@ -21,11 +28,35 @@ public class JettyConfig  {
     @Value("${jetty.threads.max:500}")
     private Integer jettyThreadsMax;
 
+    @Value("${jetty.threads.min:50}")
+    private Integer jettyThreadsMin;
+
+
     @Bean
     public JettyServletWebServerFactory embeddedServletContainerFactory() {
         JettyServletWebServerFactory webServer = new JettyServletWebServerFactory() {
             @Override
             protected JettyWebServer getJettyWebServer(Server server) {
+
+                if (logEnabled) {
+                    NCSARequestLog requestLog = new NCSARequestLog(logFile);
+                    requestLog.setAppend(true);
+                    requestLog.setRetainDays(1);
+                    requestLog.setExtended(true);
+                    requestLog.setLogTimeZone(getTimeZone());
+                    requestLog.setLogDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+                    RequestLogHandler requestLogHandler = new RequestLogHandler();
+                    requestLogHandler.setRequestLog(requestLog);
+                    requestLog.setAppend(true);
+
+                    requestLogHandler.setHandler(server.getHandler());
+
+                    HandlerList topLevelHandlers = new HandlerList();
+                    topLevelHandlers.addHandler(requestLogHandler);
+                    topLevelHandlers.addHandler(server.getHandler());
+
+                    server.setHandler(topLevelHandlers);
+                }
                 StatisticsHandler handler = new StatisticsHandler();
                 handler.setHandler(server.getHandler());
                 server.setHandler(handler);

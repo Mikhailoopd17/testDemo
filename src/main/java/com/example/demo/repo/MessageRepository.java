@@ -19,8 +19,9 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     @Query(value = "SELECT * FROM messages " +
             "WHERE NOT is_deleted " +
             "order by created_at " +
-            "offset :offset", nativeQuery = true)
-    List<Message> findLimitMessages(Integer offset);
+            "offset (SELECT " +
+            "(SELECT count(*) FROM messages WHERE NOT is_deleted) - :limit)", nativeQuery = true)
+    List<Message> findLimitMessages(Integer limit);
 
     List<Message> findAllByCreatedAtBetweenAndDeletedIsOrderById(LocalDateTime createdAtStart, LocalDateTime createdAtEnd, Boolean isDeleted);
 }

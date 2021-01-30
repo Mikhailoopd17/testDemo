@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,26 +22,44 @@ public class MessageRepositoryImpl implements BaseDao<Message, MessageParams> {
 
     private MessageRepository messageRepository;
 
+    private UserRepository userRepository;
+
     @Autowired
-    public MessageRepositoryImpl(MessageRepository messageRepository) {
+    public MessageRepositoryImpl(MessageRepository messageRepository, UserRepository userRepository) {
         this.messageRepository = messageRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
     public Message create(Message entity) {
+        if (entity.getSender() == null || !userRepository.existsById(entity.getSenderId()) ) {
+            throw new UserExceptions.RestException("Отправитель сообщения не задан или не существует!");
+        }
+        if (entity.getText() == null || entity.getText().trim().length() > 0) {
+            throw new UserExceptions.RestException("Сообщение не должно быть пустым!");
+        }
         return messageRepository.save(entity);
     }
 
     @Override
     public Message getById(Long id) {
+        if (!messageRepository.existsById(id)) {
+            throw new UserExceptions.RestException("Невозможно найти сообщение с id: "+ id);
+        }
         return messageRepository.findMessageById(id);
     }
 
     @Override
     public Message update(Message entity) {
-        if (entity.getSender() == null) {
-            throw new UserExceptions.RestException("Не задан отправитель");
+        if (entity.getId() == null || !messageRepository.existsById(entity.getId())) {
+            throw new UserExceptions.RestException("Невозможно обновить сообщение c id: "+ entity.getId());
         }
+        if (entity.getText() == null || entity.getText().trim().length() > 0) {
+            throw new UserExceptions.RestException("Сообщение не должно быть пустым!");
+        }
+        Message message = messageRepository.findMessageById(entity.getId());
+        message.setUpdatedAt(LocalDateTime.now());
+        message.setText(entity.getText());
         return messageRepository.save(entity);
     }
 
@@ -47,9 +67,8 @@ public class MessageRepositoryImpl implements BaseDao<Message, MessageParams> {
     public Page<Message> list(PageParams<MessageParams> pageParams) {
         final MessageParams messageParams = pageParams.getParams() == null ? new MessageParams() : pageParams.getParams();
         List<Message> messages;
-        if (messageParams.getStart() == null || messageParams.getEnd() == null) {
-            Integer count = messageRepository.getActiveCount();
-            messages = messageRepository.findLimitMessages(count - limitLastMessages);
+        if (messageParams.getStart() == null) {
+            messages = messageRepository.findLimitMessages(limitLastMessages);
         } else {
             messages = messageRepository.findAllByCreatedAtBetweenAndDeletedIsOrderById(messageParams.getStart().atStartOfDay(),
                     messageParams.getEnd().plusDays(1).atStartOfDay(), messageParams.getDeleted());
