@@ -35,7 +35,7 @@ public class MessageRepositoryImpl implements BaseDao<Message, MessageParams> {
         if (entity.getSender() == null || !userRepository.existsById(entity.getSenderId()) ) {
             throw new UserExceptions.RestException("Отправитель сообщения не задан или не существует!");
         }
-        if (entity.getText() == null || entity.getText().trim().length() > 0) {
+        if (entity.getText() == null || entity.getText().trim().length() == 0) {
             throw new UserExceptions.RestException("Сообщение не должно быть пустым!");
         }
         return messageRepository.save(entity);

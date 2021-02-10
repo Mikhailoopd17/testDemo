@@ -3,7 +3,7 @@ Description=test module
 
 [Service]
 User=hs
-ExecStart=java -jar/opt/mod_mess/mod_mess-0 --spring.config.location=/opt/config/application.properties >> /opt/mod_core/logs/console.out
+ExecStart=java -jar /opt/mod_mess/mod_mess-0.jar --spring.config.location=/opt/config/application.properties
 ExecStop=curl -X POST localhost:8085/shutdown
 Restart=on-failure
 

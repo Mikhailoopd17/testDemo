@@ -11,7 +11,8 @@ import org.springframework.context.annotation.PropertySources;
 
 @SpringBootApplication
 @PropertySources({
-        @PropertySource(value = "classpath:application.properties")
+        @PropertySource(value = "classpath:application.properties"),
+        @PropertySource(value = "classpath:log4j.properties")
 })
 @EntityScan(basePackages = {"com.example.demo.pojo"})
 public class DemoApplication {
